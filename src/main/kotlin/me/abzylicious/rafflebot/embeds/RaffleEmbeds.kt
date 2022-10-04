@@ -1,10 +1,9 @@
 package me.abzylicious.rafflebot.embeds
 
 import dev.kord.common.entity.Snowflake
-import dev.kord.common.kColor
 import dev.kord.rest.builder.message.EmbedBuilder
 import me.abzylicious.rafflebot.extensions.stdlib.toDisplayableEmote
-import me.abzylicious.rafflebot.persistence.Raffle
+import me.abzylicious.rafflebot.dataclasses.Raffle
 import me.jakejmattson.discordkt.Discord
 import me.jakejmattson.discordkt.extensions.addInlineField
 import me.jakejmattson.discordkt.extensions.pfpUrl
@@ -20,8 +19,8 @@ suspend fun EmbedBuilder.createRaffleListEmbed(discord: Discord, raffles: List<R
         return
 
     for (raffle in raffles) {
-        addInlineField("Raffle Id (MessageId)", raffle.MessageId.toString())
-        addInlineField("Message", "[Jump to](${raffle.MessageUrl})")
-        addInlineField("Reaction", raffle.Reaction.toDisplayableEmote(guildId))
+        addInlineField("Raffle Id (MessageId)", raffle.messageId.toString())
+        addInlineField("Message", "[Jump to](${raffle.messageUrl})")
+        addInlineField("Reaction", raffle.reaction.toDisplayableEmote(guildId))
     }
 }

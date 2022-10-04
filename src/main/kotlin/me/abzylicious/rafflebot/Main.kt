@@ -5,9 +5,9 @@ import dev.kord.common.entity.Permission
 import dev.kord.common.entity.Permissions
 import dev.kord.gateway.Intent
 import dev.kord.gateway.Intents
-import me.abzylicious.rafflebot.configuration.Configuration
-import me.abzylicious.rafflebot.configuration.Messages
-import me.abzylicious.rafflebot.persistence.RaffleEntries
+import me.abzylicious.rafflebot.dataclasses.Configuration
+import me.abzylicious.rafflebot.dataclasses.Messages
+import me.abzylicious.rafflebot.dataclasses.RaffleEntries
 import me.abzylicious.rafflebot.services.LoggingService
 import me.jakejmattson.discordkt.dsl.bot
 import java.awt.Color

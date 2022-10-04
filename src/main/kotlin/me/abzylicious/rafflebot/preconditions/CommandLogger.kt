@@ -1,6 +1,6 @@
 package me.abzylicious.rafflebot.preconditions
 
-import me.abzylicious.rafflebot.configuration.Configuration
+import me.abzylicious.rafflebot.dataclasses.Configuration
 import me.abzylicious.rafflebot.services.LoggingService
 import me.jakejmattson.discordkt.dsl.precondition
 

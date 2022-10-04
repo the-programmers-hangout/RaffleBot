@@ -1,7 +1,7 @@
 package me.abzylicious.rafflebot.commands
 
-import me.abzylicious.rafflebot.configuration.Configuration
-import me.abzylicious.rafflebot.configuration.Messages
+import me.abzylicious.rafflebot.dataclasses.Configuration
+import me.abzylicious.rafflebot.dataclasses.Messages
 import me.abzylicious.rafflebot.embeds.createRaffleListEmbed
 import me.abzylicious.rafflebot.extensions.discordkt.getEmoteIdOrValue
 import me.abzylicious.rafflebot.services.RaffleService

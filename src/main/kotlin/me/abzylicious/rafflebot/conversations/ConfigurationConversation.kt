@@ -1,8 +1,8 @@
 package me.abzylicious.rafflebot.conversations
 
 import dev.kord.common.entity.Snowflake
-import me.abzylicious.rafflebot.configuration.Configuration
-import me.abzylicious.rafflebot.configuration.Messages
+import me.abzylicious.rafflebot.dataclasses.Configuration
+import me.abzylicious.rafflebot.dataclasses.Messages
 import me.abzylicious.rafflebot.embeds.createConfigurationMessageEmbed
 import me.abzylicious.rafflebot.extensions.discordkt.getEmoteIdOrValue
 import me.jakejmattson.discordkt.arguments.*

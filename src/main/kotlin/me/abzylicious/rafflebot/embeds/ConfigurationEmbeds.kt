@@ -2,7 +2,7 @@ package me.abzylicious.rafflebot.embeds
 
 import dev.kord.core.entity.Guild
 import dev.kord.rest.builder.message.EmbedBuilder
-import me.abzylicious.rafflebot.configuration.GuildConfiguration
+import me.abzylicious.rafflebot.dataclasses.GuildConfiguration
 import me.abzylicious.rafflebot.extensions.stdlib.toDisplayableEmote
 import me.jakejmattson.discordkt.Discord
 import me.jakejmattson.discordkt.extensions.*

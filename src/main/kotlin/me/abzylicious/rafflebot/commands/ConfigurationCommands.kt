@@ -2,8 +2,8 @@ package me.abzylicious.rafflebot.commands
 
 import dev.kord.common.entity.Permission
 import dev.kord.common.entity.Permissions
-import me.abzylicious.rafflebot.configuration.Configuration
-import me.abzylicious.rafflebot.configuration.Messages
+import me.abzylicious.rafflebot.dataclasses.Configuration
+import me.abzylicious.rafflebot.dataclasses.Messages
 import me.abzylicious.rafflebot.conversations.ConfigurationConversation
 import me.abzylicious.rafflebot.embeds.createConfigurationEmbed
 import me.jakejmattson.discordkt.arguments.*

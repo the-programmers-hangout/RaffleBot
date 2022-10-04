@@ -1,4 +1,4 @@
-package me.abzylicious.rafflebot.configuration
+package me.abzylicious.rafflebot.dataclasses
 
 import kotlinx.serialization.Serializable
 import me.jakejmattson.discordkt.dsl.Data

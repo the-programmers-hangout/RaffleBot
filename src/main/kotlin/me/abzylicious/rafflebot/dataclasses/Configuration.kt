@@ -1,4 +1,4 @@
-package me.abzylicious.rafflebot.configuration
+package me.abzylicious.rafflebot.dataclasses
 
 import dev.kord.common.entity.Snowflake
 import kotlinx.serialization.Serializable

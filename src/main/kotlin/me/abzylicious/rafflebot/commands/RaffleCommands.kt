@@ -17,7 +17,7 @@ fun raffleCommands(configuration: Configuration, raffleService: RaffleService, m
         description = "Lists all active raffles"
         requiredPermissionLevel = PermissionLevel.Staff
         execute {
-            val guildId = guild.id.longValue
+            val guildId = guild.id.value
             val raffles = raffleService.getRaffles(guildId)
             respond { createRaffleListEmbed(discord, raffles, guildId) }
         }
@@ -26,9 +26,9 @@ fun raffleCommands(configuration: Configuration, raffleService: RaffleService, m
     guildCommand("Convert") {
         description = "Converts a message to a raffle"
         requiredPermissionLevel = PermissionLevel.Staff
-        execute(MessageArg, EitherArg(GuildEmojiArg, UnicodeEmojiArg).makeNullableOptional()) {
-            val guildId = guild.id.longValue
-            val messageId = args.first.id.longValue
+        execute(MessageArg, EitherArg(GuildEmojiArg, UnicodeEmojiArg).optionalNullable()) {
+            val guildId = guild.id.value
+            val messageId = args.first.id.value
 
             if (raffleService.raffleExists(guildId, messageId)) {
                 respond(messages.RAFFLE_EXISTS)
@@ -36,7 +36,7 @@ fun raffleCommands(configuration: Configuration, raffleService: RaffleService, m
             }
 
             val messageUrl = args.first.jumpLink(guildId)
-            val channelId = args.first.channelId.longValue
+            val channelId = args.first.channelId.value
             val reaction = args.second?.getEmoteIdOrValue() ?: configuration.defaultRaffleReaction
 
             raffleService.addRaffle(guildId, messageId, channelId, reaction, messageUrl)
@@ -48,9 +48,9 @@ fun raffleCommands(configuration: Configuration, raffleService: RaffleService, m
     guildCommand("End") {
         description = "End a given raffle"
         requiredPermissionLevel = PermissionLevel.Staff
-        execute(MessageArg, IntegerArg.makeOptional(1)) {
-            val guildId = guild.id.longValue
-            val messageId = args.first.id.longValue
+        execute(MessageArg, IntegerArg.optional(1)) {
+            val guildId = guild.id.value
+            val messageId = args.first.id.value
             val winnerCount = args.second
 
             if (!raffleService.raffleExists(guildId, messageId)) {
@@ -77,8 +77,8 @@ fun raffleCommands(configuration: Configuration, raffleService: RaffleService, m
         requiredPermissionLevel = PermissionLevel.Staff
         description = "Remove a given raffle"
         execute(MessageArg) {
-            val guildId = guild.id.longValue
-            val messageId = args.first.id.longValue
+            val guildId = guild.id.value
+            val messageId = args.first.id.value
 
             if (!raffleService.raffleExists(guildId, messageId)) {
                 respond(messages.RAFFLE_NOT_FOUND)
@@ -94,7 +94,7 @@ fun raffleCommands(configuration: Configuration, raffleService: RaffleService, m
         requiredPermissionLevel = PermissionLevel.Staff
         description = "Remove all raffles"
         execute {
-            val guildId = guild.id.longValue
+            val guildId = guild.id.value
 
             if (!raffleService.rafflesExist(guildId)) {
                 respond(messages.NO_RAFFLES_AVAILABLE)

@@ -14,7 +14,7 @@ repositories {
 }
 
 dependencies {
-    implementation("me.jakejmattson:DiscordKt:0.21.3")
+    implementation("me.jakejmattson:DiscordKt:0.22.0")
     implementation("com.google.code.gson:gson:2.8.9")
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.1")
 }

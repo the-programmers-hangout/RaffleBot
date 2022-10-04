@@ -1,6 +1,7 @@
 package me.abzylicious.rafflebot.embeds
 
-import com.gitlab.kordlib.rest.builder.message.EmbedBuilder
+import dev.kord.common.kColor
+import dev.kord.rest.builder.message.EmbedBuilder
 import me.abzylicious.rafflebot.services.BotStatsService
 import me.jakejmattson.discordkt.api.dsl.DiscordContext
 import me.jakejmattson.discordkt.api.extensions.addInlineField
@@ -9,9 +10,9 @@ data class Project(val author: String, val version: String, val discordkt: Strin
 
 suspend fun EmbedBuilder.createBotInformationEmbed(discordContext: DiscordContext, project: Project) {
     val botStatsService = discordContext.discord.getInjectionObjects(BotStatsService::class)
-    val self = discordContext.discord.api.getSelf()
+    val self = discordContext.discord.kord.getSelf()
 
-    color = discordContext.discord.configuration.theme
+    color = discordContext.discord.configuration.theme?.kColor
     thumbnail { url = self.avatar.url }
 
     title = self.tag

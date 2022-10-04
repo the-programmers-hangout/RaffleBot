@@ -1,6 +1,6 @@
 package me.abzylicious.rafflebot.services
 
-import com.gitlab.kordlib.core.entity.User
+import dev.kord.core.entity.User
 import kotlinx.coroutines.flow.toList
 import me.abzylicious.rafflebot.extensions.kord.getReaction
 import me.abzylicious.rafflebot.extensions.stdlib.toTextChannel
@@ -37,7 +37,7 @@ class RaffleService(discord: Discord) {
 
         val raffle = repository.get(guildId, messageId)!!
         val participants = getRaffleParticipants(raffle).filter { it.isBot == null || it.isBot == false }
-        return randomizer.selectRandom(participants, winnerCount).map { Winner(it.id.value, it.tag, it.mention) }
+        return randomizer.selectRandom(participants, winnerCount).map { Winner(it.id.asString, it.tag, it.mention) }
     }
 
     private suspend fun getRaffleParticipants(raffle: Raffle): List<User> {

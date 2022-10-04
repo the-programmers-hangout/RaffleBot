@@ -6,7 +6,7 @@ fun utilityCommands() = commands("Utility") {
     guildCommand("Ping") {
         description = "Check the status of the bot"
         execute {
-            respond("Pong! (${discord.api.gateway.averagePing})")
+            respond("Pong! (${discord.kord.gateway.averagePing})")
         }
     }
 }

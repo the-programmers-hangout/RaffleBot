@@ -5,7 +5,7 @@ import me.abzylicious.rafflebot.services.LoggingService
 import me.jakejmattson.discordkt.dsl.precondition
 
 fun commandLogger(loggingService: LoggingService, configuration: Configuration) = precondition {
-    command ?: return@precondition fail()
+    command ?: return@precondition
 
     val guildId = guild?.id ?: return@precondition
     val loggingChannelId = configuration.guildConfigurations[guildId]?.loggingChannel ?: return@precondition

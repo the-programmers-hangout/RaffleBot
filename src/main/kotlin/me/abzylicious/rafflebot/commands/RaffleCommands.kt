@@ -1,27 +1,19 @@
 package me.abzylicious.rafflebot.commands
 
 import dev.kord.x.emoji.toReaction
-import me.abzylicious.rafflebot.dataclasses.Configuration
 import me.abzylicious.rafflebot.dataclasses.Messages
 import me.abzylicious.rafflebot.embeds.createRaffleListEmbed
 import me.abzylicious.rafflebot.services.RaffleService
-import me.jakejmattson.discordkt.arguments.*
-import me.jakejmattson.discordkt.commands.commands
+import me.jakejmattson.discordkt.arguments.IntegerArg
+import me.jakejmattson.discordkt.arguments.MessageArg
+import me.jakejmattson.discordkt.arguments.UnicodeEmojiArg
+import me.jakejmattson.discordkt.commands.subcommand
 import me.jakejmattson.discordkt.extensions.jumpLink
 
-fun raffleCommands(configuration: Configuration, raffleService: RaffleService, messages: Messages) = commands("Raffle") {
-    command("List") {
-        description = "Lists all active raffles"
-        execute {
-            val guildId = guild.id
-            val raffles = raffleService.getRaffles(guildId)
-            respond { createRaffleListEmbed(discord, raffles) }
-        }
-    }
-
-    command("Convert") {
-        description = "Converts a message to a raffle"
-        execute(MessageArg, UnicodeEmojiArg) {
+fun raffleCommands(raffleService: RaffleService, messages: Messages) = subcommand("raffle") {
+    sub("Convert", "Converts a message to a raffle") {
+        execute(MessageArg("Message", "The message to convert to a raffle"),
+            UnicodeEmojiArg("Emoji", "The emoji used to enter the raffle")) {
             val guildId = guild.id
             val message = args.first
             val messageId = message.id
@@ -41,9 +33,9 @@ fun raffleCommands(configuration: Configuration, raffleService: RaffleService, m
         }
     }
 
-    command("End") {
-        description = "End a given raffle"
-        execute(MessageArg, IntegerArg.optional(1)) {
+    sub("End", "End a given raffle") {
+        execute(MessageArg("Message", "The raffle message ID"),
+            IntegerArg("Winners", "The number of winners").optional(1)) {
             val guildId = guild.id
             val messageId = args.first.id
             val winnerCount = args.second
@@ -68,9 +60,8 @@ fun raffleCommands(configuration: Configuration, raffleService: RaffleService, m
         }
     }
 
-    command("Remove") {
-        description = "Remove a given raffle"
-        execute(MessageArg) {
+    sub("Cancel", "Cancel a given raffle") {
+        execute(MessageArg("Message", "The raffle message ID")) {
             val guildId = guild.id
             val messageId = args.first.id
 
@@ -84,18 +75,11 @@ fun raffleCommands(configuration: Configuration, raffleService: RaffleService, m
         }
     }
 
-    command("Clear") {
-        description = "Remove all raffles"
+    sub("List", "Lists all active raffles") {
         execute {
             val guildId = guild.id
-
-            if (!raffleService.rafflesExist(guildId)) {
-                respond(messages.NO_RAFFLES_AVAILABLE)
-                return@execute
-            }
-
-            raffleService.clearRaffles(guildId)
-            respond(messages.RAFFLES_CLEARED)
+            val raffles = raffleService.getRaffles(guildId)
+            respond { createRaffleListEmbed(discord, raffles) }
         }
     }
 }

@@ -7,13 +7,13 @@ import me.abzylicious.rafflebot.dataclasses.GuildConfiguration
 import me.abzylicious.rafflebot.dataclasses.Messages
 import me.jakejmattson.discordkt.arguments.ChannelArg
 import me.jakejmattson.discordkt.arguments.UnicodeEmojiArg
-import me.jakejmattson.discordkt.commands.commands
+import me.jakejmattson.discordkt.commands.subcommand
 import me.jakejmattson.discordkt.dsl.edit
 
-fun configurationCommands(configuration: Configuration, messages: Messages) = commands("Configuration", Permissions(Permission.ManageGuild)) {
-    command("configure") {
-        description = "Configure a guild to use this bot"
-        execute(ChannelArg, UnicodeEmojiArg) {
+fun configurationCommands(configuration: Configuration, messages: Messages) = subcommand("configure", Permissions(Permission.ManageGuild)) {
+    sub("all", "Configure a guild to use this bot") {
+        execute(ChannelArg("Channel", "The channel to send logs to"),
+            UnicodeEmojiArg("Emoji", "The default raffle reaction")) {
             val guildId = guild.id
             val (channel, reaction) = args
 
@@ -30,9 +30,8 @@ fun configurationCommands(configuration: Configuration, messages: Messages) = co
         }
     }
 
-    command("setloggingchannel") {
-        description = "Set the bot logging channel"
-        execute(ChannelArg) {
+    sub("loggingchannel", "Set the bot logging channel") {
+        execute(ChannelArg("Channel", "The channel to send logs to")) {
             val guildId = guild.id
             if (!configuration.hasGuildConfig(guildId)) {
                 respond(messages.GUILD_CONFIGURATION_NOT_FOUND)
@@ -45,9 +44,8 @@ fun configurationCommands(configuration: Configuration, messages: Messages) = co
         }
     }
 
-    command("setdefaultreaction") {
-        description = "Set the default reaction for raffles"
-        execute(UnicodeEmojiArg) {
+    sub("defaultreaction", "Set the default reaction for raffles") {
+        execute(UnicodeEmojiArg("Emoji", "The default raffle reaction")) {
             val guildId = guild.id
             if (!configuration.hasGuildConfig(guildId)) {
                 respond(messages.GUILD_CONFIGURATION_NOT_FOUND)

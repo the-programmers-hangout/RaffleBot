@@ -1,8 +1,10 @@
 package me.abzylicious.rafflebot.persistence
 
 import dev.kord.common.entity.Snowflake
+import kotlinx.serialization.Serializable
 import me.jakejmattson.discordkt.dsl.Data
 
+@Serializable
 data class Raffle (
     val GuildId: Snowflake,
     val MessageId: Snowflake,
@@ -11,4 +13,5 @@ data class Raffle (
     val MessageUrl: String,
 )
 
-data class RaffleEntries(val raffles: MutableList<Raffle> = mutableListOf()) : Data("data/raffles.json", false)
+@Serializable
+data class RaffleEntries(val raffles: MutableList<Raffle> = mutableListOf()) : Data()

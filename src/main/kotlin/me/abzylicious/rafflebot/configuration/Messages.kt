@@ -1,7 +1,9 @@
 package me.abzylicious.rafflebot.configuration
 
+import kotlinx.serialization.Serializable
 import me.jakejmattson.discordkt.dsl.Data
 
+@Serializable
 data class Messages(
     val NO_TOKEN_PROVIDED: String = "Expected the bot token as argument or an environment variable",
     val GUILD_CONFIGURATION_EXISTS: String = "Guild configuration exists. To modify it use the respective commands to set values.",
@@ -21,4 +23,4 @@ data class Messages(
     val NO_RAFFLES_AVAILABLE: String = "There are no raffles",
     val NO_WINNER_AVAILABLE: String = "No one participated in this raffle or you tried to draw more winners than there are participants",
     val CONGRATULATION: String = "Congratulations to the following winner(s)!"
-) : Data("config/messages.json", false)
+) : Data()

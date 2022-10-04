@@ -10,6 +10,7 @@ import me.abzylicious.rafflebot.services.PermissionLevel
 import me.abzylicious.rafflebot.services.requiredPermissionLevel
 import me.jakejmattson.discordkt.arguments.*
 import me.jakejmattson.discordkt.commands.commands
+import me.jakejmattson.discordkt.dsl.edit
 
 fun configurationCommands(configuration: Configuration, messages: Messages) = commands("Configuration") {
     command("configuration") {
@@ -56,8 +57,7 @@ fun configurationCommands(configuration: Configuration, messages: Messages) = co
             }
 
             val role = args.first
-            configuration[guildId]?.adminRole = role.id
-            configuration.save()
+            configuration.edit { this[guildId]?.adminRole = role.id }
             respond("Role set to: **${role.name}**")
         }
     }
@@ -73,8 +73,7 @@ fun configurationCommands(configuration: Configuration, messages: Messages) = co
             }
 
             val role = args.first
-            configuration[guild.id]?.staffRole = role.id
-            configuration.save()
+            configuration.edit { this[guild.id]?.staffRole = role.id }
             respond("Role set to: **${role.name}**")
         }
     }
@@ -90,8 +89,7 @@ fun configurationCommands(configuration: Configuration, messages: Messages) = co
             }
 
             val channel = args.first
-            configuration[guild.id]?.loggingChannel = channel.id
-            configuration.save()
+            configuration.edit { this[guild.id]?.loggingChannel = channel.id }
             respond("Channel set to: **${channel.name}**")
         }
     }
@@ -107,8 +105,7 @@ fun configurationCommands(configuration: Configuration, messages: Messages) = co
             }
 
             val reaction = args.first.getEmoteIdOrValue()
-            configuration[guild.id]?.defaultRaffleReaction = reaction
-            configuration.save()
+            configuration.edit { this[guild.id]?.defaultRaffleReaction = reaction }
             respond("Reaction set to: ${reaction.toDisplayableEmote(guildId)}")
         }
     }

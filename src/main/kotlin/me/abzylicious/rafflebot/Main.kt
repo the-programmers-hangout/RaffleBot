@@ -7,6 +7,7 @@ import dev.kord.gateway.Intent
 import dev.kord.gateway.Intents
 import me.abzylicious.rafflebot.configuration.Configuration
 import me.abzylicious.rafflebot.configuration.Messages
+import me.abzylicious.rafflebot.persistence.RaffleEntries
 import me.abzylicious.rafflebot.services.LoggingService
 import me.jakejmattson.discordkt.dsl.bot
 import java.awt.Color
@@ -22,6 +23,8 @@ suspend fun main(args: Array<String>) {
 
     bot(token) {
         val configuration = data("config/config.json") { Configuration() }
+        data("data/raffles.json") { RaffleEntries() }
+        data("config/messages.json") { Messages() }
 
         prefix { "/" }
 

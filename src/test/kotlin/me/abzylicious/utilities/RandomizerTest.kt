@@ -1,8 +1,8 @@
 package me.abzylicious.utilities
 
 import me.abzylicious.rafflebot.utilities.Randomizer
-import org.junit.Test
-import kotlin.test.assertEquals
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
 class RandomizerTest {
 
@@ -12,19 +12,19 @@ class RandomizerTest {
     @Test
     fun `returns an empty list when the pool is empty`() {
         val result = randomizer.selectRandom(emptyList(), 0)
-        assertEquals(emptyList(), result)
+        assertEquals(emptyList<Int>(), result)
     }
 
     @Test
     fun `returns an empty list when drawCount is smaller than 0`() {
         val result = randomizer.selectRandom(testPool, -1)
-        assertEquals(emptyList(), result)
+        assertEquals(emptyList<Int>(), result)
     }
 
     @Test
     fun `returns an empty list when drawCount is 0`() {
         val result = randomizer.selectRandom(testPool, 0)
-        assertEquals(emptyList(), result)
+        assertEquals(emptyList<Int>(), result)
     }
 
     @Test
@@ -36,7 +36,7 @@ class RandomizerTest {
     @Test
     fun `returns an empty list when drawCount is larger than the pool`() {
         val result = randomizer.selectRandom(testPool, 42)
-        assertEquals(emptyList(), result)
+        assertEquals(emptyList<Int>(), result)
     }
 
     @Test

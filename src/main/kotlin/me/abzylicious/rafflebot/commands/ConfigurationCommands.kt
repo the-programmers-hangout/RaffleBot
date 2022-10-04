@@ -89,16 +89,16 @@ fun configurationCommands(configuration: Configuration, messages: Messages) = co
 
     command("setdefaultreaction") {
         description = "Set the default reaction for raffles"
-        execute(EitherArg(GuildEmojiArg, UnicodeEmojiArg)) {
+        execute(UnicodeEmojiArg) {
             val guildId = guild.id
             if (!configuration.hasGuildConfig(guildId)) {
                 respond(messages.GUILD_CONFIGURATION_NOT_FOUND)
                 return@execute
             }
 
-            val reaction = args.first.getEmoteIdOrValue()
+            val reaction = args.first.unicode
             configuration.edit { this[guild.id]?.defaultRaffleReaction = reaction }
-            respond("Reaction set to: ${reaction.toDisplayableEmote(guildId)}")
+            respond("Reaction set to: $reaction")
         }
     }
 }

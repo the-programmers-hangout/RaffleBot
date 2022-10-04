@@ -3,7 +3,6 @@ package me.abzylicious.rafflebot.embeds
 import dev.kord.core.entity.Guild
 import dev.kord.rest.builder.message.EmbedBuilder
 import me.abzylicious.rafflebot.dataclasses.GuildConfiguration
-import me.abzylicious.rafflebot.extensions.stdlib.toDisplayableEmote
 import me.jakejmattson.discordkt.Discord
 import me.jakejmattson.discordkt.extensions.*
 
@@ -21,5 +20,5 @@ suspend fun EmbedBuilder.createConfigurationEmbed(discord: Discord, guild: Guild
     addField("Admin Role", guild.getRole(guildConfiguration.adminRole).mention)
     addField("Staff Role", guild.getRole(guildConfiguration.staffRole).mention)
     addField("Logging Channel", guild.getChannel(guildConfiguration.loggingChannel).mention)
-    addField("Default Raffle Reaction", guildConfiguration.defaultRaffleReaction.toDisplayableEmote(guild.id))
+    addField("Default Raffle Reaction", guildConfiguration.defaultRaffleReaction)
 }

@@ -2,11 +2,12 @@ package me.abzylicious.rafflebot.services
 
 import dev.kord.common.entity.Snowflake
 import dev.kord.core.entity.User
+import dev.kord.core.entity.channel.GuildMessageChannel
 import kotlinx.coroutines.flow.toList
 import me.abzylicious.rafflebot.dataclasses.Raffle
 import me.abzylicious.rafflebot.dataclasses.RaffleEntries
-import me.abzylicious.rafflebot.extensions.kord.getReaction
 import me.abzylicious.rafflebot.utilities.Randomizer
+import me.jakejmattson.discordkt.Discord
 import me.jakejmattson.discordkt.annotations.Service
 import me.jakejmattson.discordkt.dsl.edit
 import me.jakejmattson.discordkt.extensions.toSnowflake
@@ -14,7 +15,7 @@ import me.jakejmattson.discordkt.extensions.toSnowflake
 data class Winner(val id: String, val name: String, val mention: String)
 
 @Service
-class RaffleService(private val raffleEntries: RaffleEntries) {
+class RaffleService(private val discord: Discord, private val raffleEntries: RaffleEntries) {
     private val randomizer: Randomizer<User> = Randomizer()
 
     fun rafflesExist(guildId: Snowflake) = raffleEntries.raffles.any { it.guildId == guildId }
@@ -43,9 +44,9 @@ class RaffleService(private val raffleEntries: RaffleEntries) {
     }
 
     private suspend fun getRaffleParticipants(raffle: Raffle): List<User> {
-        val channel = raffle.channelId.toTextChannel() ?: return emptyList()
-        val message = channel.getMessage(raffle.messageId.toSnowflake())
-        val reaction = message.getReaction(raffle.reaction)
+        val channel = discord.kord.getChannelOf<GuildMessageChannel>(raffle.channelId) ?: return emptyList()
+        val message = channel.getMessage(raffle.messageId)
+        val reaction = message.reactions.find { it.emoji.name == raffle.reaction }?.emoji
         return if (reaction != null) message.getReactors(reaction).toList() else listOf()
     }
 }

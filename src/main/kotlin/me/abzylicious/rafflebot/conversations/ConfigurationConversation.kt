@@ -4,7 +4,6 @@ import dev.kord.common.entity.Snowflake
 import me.abzylicious.rafflebot.dataclasses.Configuration
 import me.abzylicious.rafflebot.dataclasses.Messages
 import me.abzylicious.rafflebot.embeds.createConfigurationMessageEmbed
-import me.abzylicious.rafflebot.extensions.discordkt.getEmoteIdOrValue
 import me.jakejmattson.discordkt.arguments.*
 import me.jakejmattson.discordkt.conversations.conversation
 
@@ -27,9 +26,9 @@ class ConfigurationConversation(private val configuration: Configuration, privat
         }
 
         val defaultRaffleReaction = if (setDefaultRaffleReaction) {
-            prompt(EitherArg(GuildEmojiArg, UnicodeEmojiArg)) {
+            prompt(UnicodeEmojiArg) {
                 createConfigurationMessageEmbed(discord, "Setup - Default Raffle Reaction", messages.SETUP_DEFAULT_RAFFLE_REACTION)
-            }.getEmoteIdOrValue()
+            }.unicode
         } else {
             configuration.defaultRaffleReaction
         }

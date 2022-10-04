@@ -1,9 +1,9 @@
 package me.abzylicious.rafflebot.commands
 
+import dev.kord.x.emoji.toReaction
 import me.abzylicious.rafflebot.dataclasses.Configuration
 import me.abzylicious.rafflebot.dataclasses.Messages
 import me.abzylicious.rafflebot.embeds.createRaffleListEmbed
-import me.abzylicious.rafflebot.extensions.discordkt.getEmoteIdOrValue
 import me.abzylicious.rafflebot.services.RaffleService
 import me.jakejmattson.discordkt.arguments.*
 import me.jakejmattson.discordkt.commands.commands
@@ -15,13 +15,13 @@ fun raffleCommands(configuration: Configuration, raffleService: RaffleService, m
         execute {
             val guildId = guild.id
             val raffles = raffleService.getRaffles(guildId)
-            respond { createRaffleListEmbed(discord, raffles, guildId) }
+            respond { createRaffleListEmbed(discord, raffles) }
         }
     }
 
     command("Convert") {
         description = "Converts a message to a raffle"
-        execute(MessageArg, EitherArg(GuildEmojiArg, UnicodeEmojiArg).optionalNullable()) {
+        execute(MessageArg, UnicodeEmojiArg) {
             val guildId = guild.id
             val message = args.first
             val messageId = message.id
@@ -33,9 +33,9 @@ fun raffleCommands(configuration: Configuration, raffleService: RaffleService, m
 
             val messageUrl = args.first.jumpLink()
             val channelId = args.first.channelId
-            val reaction = args.second?.getEmoteIdOrValue() ?: configuration.defaultRaffleReaction
+            val reaction = args.second.toReaction()
 
-            raffleService.addRaffle(guildId, messageId, channelId, reaction, messageUrl)
+            raffleService.addRaffle(guildId, messageId, channelId, reaction.name, messageUrl!!)
             message.addReaction(reaction)
             respond(messages.MESSAGE_CONVERT_SUCCESS)
         }

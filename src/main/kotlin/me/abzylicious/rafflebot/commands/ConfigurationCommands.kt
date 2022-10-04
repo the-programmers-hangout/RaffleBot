@@ -3,72 +3,30 @@ package me.abzylicious.rafflebot.commands
 import dev.kord.common.entity.Permission
 import dev.kord.common.entity.Permissions
 import me.abzylicious.rafflebot.dataclasses.Configuration
+import me.abzylicious.rafflebot.dataclasses.GuildConfiguration
 import me.abzylicious.rafflebot.dataclasses.Messages
-import me.abzylicious.rafflebot.conversations.ConfigurationConversation
-import me.abzylicious.rafflebot.embeds.createConfigurationEmbed
-import me.jakejmattson.discordkt.arguments.*
+import me.jakejmattson.discordkt.arguments.ChannelArg
+import me.jakejmattson.discordkt.arguments.UnicodeEmojiArg
 import me.jakejmattson.discordkt.commands.commands
 import me.jakejmattson.discordkt.dsl.edit
 
 fun configurationCommands(configuration: Configuration, messages: Messages) = commands("Configuration", Permissions(Permission.ManageGuild)) {
-    command("configuration") {
-        description = "Show the current guild configuration"
-        execute {
-            val guildId = guild.id
-            if (!configuration.hasGuildConfig(guildId)) {
-                respond(messages.GUILD_CONFIGURATION_NOT_FOUND)
-                return@execute
-            }
-
-            val guildConfiguration = configuration[guildId]!!
-            respond { createConfigurationEmbed(discord, guild, guildConfiguration) }
-        }
-    }
-
     command("configure") {
         description = "Configure a guild to use this bot"
-        execute {
+        execute(ChannelArg, UnicodeEmojiArg) {
             val guildId = guild.id
+            val (channel, reaction) = args
+
             if (configuration.hasGuildConfig(guildId)) {
                 respond(messages.GUILD_CONFIGURATION_EXISTS)
                 return@execute
             }
 
-            ConfigurationConversation(configuration, messages)
-                .createConfigurationConversation(guildId)
-                .startPublicly(discord, author, channel)
+            configuration.edit {
+                this[guildId] = GuildConfiguration(channel.id, reaction.unicode)
+            }
 
             respond("**${guild.name}** ${messages.SETUP_COMPLETE}")
-        }
-    }
-
-    command("setadminrole") {
-        description = "Set the bot admin role"
-        execute(RoleArg) {
-            val guildId = guild.id
-            if (!configuration.hasGuildConfig(guildId)) {
-                respond(messages.GUILD_CONFIGURATION_NOT_FOUND)
-                return@execute
-            }
-
-            val role = args.first
-            configuration.edit { this[guildId]?.adminRole = role.id }
-            respond("Role set to: **${role.name}**")
-        }
-    }
-
-    command("setstaffrole") {
-        description = "Set the bot staff role"
-        execute(RoleArg) {
-            val guildId = guild.id
-            if (!configuration.hasGuildConfig(guildId)) {
-                respond(messages.GUILD_CONFIGURATION_NOT_FOUND)
-                return@execute
-            }
-
-            val role = args.first
-            configuration.edit { this[guild.id]?.staffRole = role.id }
-            respond("Role set to: **${role.name}**")
         }
     }
 

@@ -13,12 +13,6 @@ class ConfigurationConversation(private val configuration: Configuration, privat
             createConfigurationMessageEmbed(discord, "Setup - Prefix", messages.SETUP_PREFIX_DECISION)
         }
 
-        val prefix = if (setPrefix) {
-            prompt(EveryArg) { createConfigurationMessageEmbed(discord, "Setup - Prefix", messages.SETUP_PREFIX) }
-        } else {
-            configuration.prefix
-        }
-
         val adminRole = prompt(RoleArg) {
             createConfigurationMessageEmbed(discord, "Setup - Admin Role", messages.SETUP_ADMIN_ROLE)
         }
@@ -43,6 +37,6 @@ class ConfigurationConversation(private val configuration: Configuration, privat
             configuration.defaultRaffleReaction
         }
 
-        configuration.setup(guildId, prefix, adminRole.id.value, staffRole.id.value, loggingChannel.id.value, defaultRaffleReaction)
+        configuration.setup(guildId, adminRole.id.value, staffRole.id.value, loggingChannel.id.value, defaultRaffleReaction)
     }
 }

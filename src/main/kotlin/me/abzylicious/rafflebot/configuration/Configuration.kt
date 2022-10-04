@@ -4,20 +4,17 @@ import me.jakejmattson.discordkt.dsl.Data
 
 data class Configuration(
     val ownerId: String = "insert-owner-id",
-    val prefix: String = "raffle!",
     val defaultRaffleReaction: String = "\uD83C\uDF89",
     val guildConfigurations: MutableMap<Long, GuildConfiguration> = mutableMapOf()
 ) : Data() {
     operator fun get(id: Long) = guildConfigurations[id]
     fun hasGuildConfig(guildId: Long) = guildConfigurations.containsKey(guildId)
 
-    fun setup(guildId: Long, prefix: String, adminRoleId: Long, staffRoleId: Long,
-              loggingChannel: Long, defaultRaffleReaction: String) {
+    fun setup(guildId: Long, adminRoleId: Long, staffRoleId: Long, loggingChannel: Long, defaultRaffleReaction: String) {
         if (guildConfigurations[guildId] != null) return
 
         val newGuildConfiguration = GuildConfiguration(
             guildId,
-            prefix,
             adminRoleId,
             staffRoleId,
             loggingChannel,
@@ -30,7 +27,6 @@ data class Configuration(
 
 data class GuildConfiguration(
     val id: Long,
-    var prefix: String = "raffle!",
     var adminRole: Long,
     var staffRole: Long,
     var loggingChannel: Long,

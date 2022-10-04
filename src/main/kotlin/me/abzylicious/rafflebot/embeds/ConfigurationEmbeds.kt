@@ -18,7 +18,6 @@ suspend fun EmbedBuilder.createConfigurationEmbed(discord: Discord, guild: Guild
     color = discord.configuration.theme
     title = "${discord.kord.getGuild(guildConfiguration.id.toSnowflake())?.name} - Configuration"
     thumbnail(discord.kord.getSelf().pfpUrl)
-    addField("Bot Prefix", guildConfiguration.prefix)
     addField("Admin Role", guild.getRole(guildConfiguration.adminRole.toSnowflake()).mention)
     addField("Staff Role", guild.getRole(guildConfiguration.staffRole.toSnowflake()).mention)
     addField("Logging Channel", guild.getChannel(guildConfiguration.loggingChannel.toSnowflake()).mention)

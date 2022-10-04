@@ -23,11 +23,11 @@ suspend fun main(args: Array<String>) {
     bot(token) {
         val configuration = data("config/config.json") { Configuration() }
 
-        prefix {
-            guild?.let { configuration[it.id.value.toLong()]?.prefix } ?: configuration.prefix
-        }
+        prefix { "/" }
 
         configure {
+            recommendCommands = false
+            dualRegistry = false
             theme = Color.CYAN
             intents = Intents(Intent.GuildMessages)
             defaultPermissions = Permissions(Permission.ManageMessages)

@@ -6,8 +6,6 @@ data class Messages(
     val NO_TOKEN_PROVIDED: String = "Expected the bot token as argument or an environment variable",
     val GUILD_CONFIGURATION_EXISTS: String = "Guild configuration exists. To modify it use the respective commands to set values.",
     val GUILD_CONFIGURATION_NOT_FOUND: String = "Guild configuration not found. Please run the **configure** command to set this initially.",
-    val SETUP_PREFIX_DECISION: String = "Would you like to set a new bot prefix? The default bot prefix is **raffle!**. This can be changed later via the **setprefix** command.",
-    val SETUP_PREFIX: String = "Set the bot prefix for this guild.",
     val SETUP_ADMIN_ROLE: String = "Set the bot admin role for this guild. This can be changed later via the **setadminrole** command.",
     val SETUP_STAFF_ROLE: String = "Set the bot staff role for this guild. This can be changed later via the **setstaffrole** command.",
     val SETUP_LOGGING_CHANNEL: String = "Set the bot logging channel. This can be changed later via the **setloggingchannel** command.",

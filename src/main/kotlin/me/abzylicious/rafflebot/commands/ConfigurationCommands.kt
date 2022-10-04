@@ -45,23 +45,6 @@ fun configurationCommands(configuration: Configuration, messages: Messages) = co
         }
     }
 
-    command("setprefix") {
-        description = "Set the bot prefix"
-        requiredPermissionLevel = PermissionLevel.Administrator
-        execute(EveryArg) {
-            val guildId = guild.id.value
-            if (!configuration.hasGuildConfig(guildId)) {
-                respond(messages.GUILD_CONFIGURATION_NOT_FOUND)
-                return@execute
-            }
-
-            val prefix = args.first
-            configuration[guildId]?.prefix = prefix
-            configuration.save()
-            respond("Prefix set to **$prefix**")
-        }
-    }
-
     command("setadminrole") {
         description = "Set the bot admin role"
         requiredPermissionLevel = PermissionLevel.Administrator

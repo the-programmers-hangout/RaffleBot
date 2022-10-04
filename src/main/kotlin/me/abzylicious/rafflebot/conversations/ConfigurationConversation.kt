@@ -1,5 +1,6 @@
 package me.abzylicious.rafflebot.conversations
 
+import dev.kord.common.entity.Snowflake
 import me.abzylicious.rafflebot.configuration.Configuration
 import me.abzylicious.rafflebot.configuration.Messages
 import me.abzylicious.rafflebot.embeds.createConfigurationMessageEmbed
@@ -8,11 +9,7 @@ import me.jakejmattson.discordkt.arguments.*
 import me.jakejmattson.discordkt.conversations.conversation
 
 class ConfigurationConversation(private val configuration: Configuration, private val messages: Messages) {
-    suspend fun createConfigurationConversation(guildId: Long) = conversation {
-        val setPrefix = prompt(BooleanArg) {
-            createConfigurationMessageEmbed(discord, "Setup - Prefix", messages.SETUP_PREFIX_DECISION)
-        }
-
+    suspend fun createConfigurationConversation(guildId: Snowflake) = conversation {
         val adminRole = prompt(RoleArg) {
             createConfigurationMessageEmbed(discord, "Setup - Admin Role", messages.SETUP_ADMIN_ROLE)
         }
@@ -37,6 +34,6 @@ class ConfigurationConversation(private val configuration: Configuration, privat
             configuration.defaultRaffleReaction
         }
 
-        configuration.setup(guildId, adminRole.id.value, staffRole.id.value, loggingChannel.id.value, defaultRaffleReaction)
+        configuration.setup(guildId, adminRole.id, staffRole.id, loggingChannel.id, defaultRaffleReaction)
     }
 }

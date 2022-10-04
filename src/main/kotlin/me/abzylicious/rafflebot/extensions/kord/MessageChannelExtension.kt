@@ -1,5 +1,6 @@
 package me.abzylicious.rafflebot.extensions.kord
 
+import dev.kord.common.entity.Snowflake
 import dev.kord.core.Kord
 import dev.kord.core.entity.ReactionEmoji
 import dev.kord.core.entity.channel.MessageChannel
@@ -10,15 +11,10 @@ import me.jakejmattson.discordkt.Discord
 import me.jakejmattson.discordkt.annotations.Service
 import me.jakejmattson.discordkt.extensions.toSnowflake
 
-private lateinit var api: Kord
-
-@Service
-class ApiInitializer(discord: Discord) { init { api = discord.kord } }
-
-suspend fun MessageChannel.addReaction(guildId: Long, messageId: Long, reaction: String) {
+suspend fun MessageChannel.addReaction(guildId: Snowflake, messageId: Snowflake, reaction: String) {
     if (reaction.isGuildEmote(guildId))
-        this.getMessage(messageId.toSnowflake()).addReaction(reaction.toGuildEmote(guildId)!!)
+        this.getMessage(messageId).addReaction(reaction.toGuildEmote(guildId)!!)
 
     if (reaction.isEmoji())
-        this.getMessage(messageId.toSnowflake()).addReaction(ReactionEmoji.Unicode(reaction))
+        this.getMessage(messageId).addReaction(ReactionEmoji.Unicode(reaction))
 }

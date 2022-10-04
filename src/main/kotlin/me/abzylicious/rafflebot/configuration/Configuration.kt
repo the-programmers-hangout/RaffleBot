@@ -1,20 +1,19 @@
 package me.abzylicious.rafflebot.configuration
 
+import dev.kord.common.entity.Snowflake
 import me.jakejmattson.discordkt.dsl.Data
 
 data class Configuration(
-    val ownerId: String = "insert-owner-id",
     val defaultRaffleReaction: String = "\uD83C\uDF89",
-    val guildConfigurations: MutableMap<Long, GuildConfiguration> = mutableMapOf()
+    val guildConfigurations: MutableMap<Snowflake, GuildConfiguration> = mutableMapOf()
 ) : Data() {
-    operator fun get(id: Long) = guildConfigurations[id]
-    fun hasGuildConfig(guildId: Long) = guildConfigurations.containsKey(guildId)
+    operator fun get(id: Snowflake) = guildConfigurations[id]
+    fun hasGuildConfig(guildId: Snowflake) = guildConfigurations.containsKey(guildId)
 
-    fun setup(guildId: Long, adminRoleId: Long, staffRoleId: Long, loggingChannel: Long, defaultRaffleReaction: String) {
+    fun setup(guildId: Snowflake, adminRoleId: Snowflake, staffRoleId: Snowflake, loggingChannel: Snowflake, defaultRaffleReaction: String) {
         if (guildConfigurations[guildId] != null) return
 
         val newGuildConfiguration = GuildConfiguration(
-            guildId,
             adminRoleId,
             staffRoleId,
             loggingChannel,
@@ -26,9 +25,8 @@ data class Configuration(
 }
 
 data class GuildConfiguration(
-    val id: Long,
-    var adminRole: Long,
-    var staffRole: Long,
-    var loggingChannel: Long,
+    var adminRole: Snowflake,
+    var staffRole: Snowflake,
+    var loggingChannel: Snowflake,
     var defaultRaffleReaction: String = "\uD83C\uDF89"
 )

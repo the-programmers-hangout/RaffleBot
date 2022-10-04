@@ -16,7 +16,7 @@ fun configurationCommands(configuration: Configuration, messages: Messages) = co
         description = "Show the current guild configuration"
         requiredPermissionLevel = PermissionLevel.Staff
         execute {
-            val guildId = guild.id.value
+            val guildId = guild.id
             if (!configuration.hasGuildConfig(guildId)) {
                 respond(messages.GUILD_CONFIGURATION_NOT_FOUND)
                 return@execute
@@ -31,7 +31,7 @@ fun configurationCommands(configuration: Configuration, messages: Messages) = co
         description = "Configure a guild to use this bot"
         requiredPermissionLevel = PermissionLevel.Administrator
         execute {
-            val guildId = guild.id.value
+            val guildId = guild.id
             if (configuration.hasGuildConfig(guildId)) {
                 respond(messages.GUILD_CONFIGURATION_EXISTS)
                 return@execute
@@ -49,14 +49,14 @@ fun configurationCommands(configuration: Configuration, messages: Messages) = co
         description = "Set the bot admin role"
         requiredPermissionLevel = PermissionLevel.Administrator
         execute(RoleArg) {
-            val guildId = guild.id.value
+            val guildId = guild.id
             if (!configuration.hasGuildConfig(guildId)) {
                 respond(messages.GUILD_CONFIGURATION_NOT_FOUND)
                 return@execute
             }
 
             val role = args.first
-            configuration[guildId]?.adminRole = role.id.value
+            configuration[guildId]?.adminRole = role.id
             configuration.save()
             respond("Role set to: **${role.name}**")
         }
@@ -66,14 +66,14 @@ fun configurationCommands(configuration: Configuration, messages: Messages) = co
         description = "Set the bot staff role"
         requiredPermissionLevel = PermissionLevel.Administrator
         execute(RoleArg) {
-            val guildId = guild.id.value
+            val guildId = guild.id
             if (!configuration.hasGuildConfig(guildId)) {
                 respond(messages.GUILD_CONFIGURATION_NOT_FOUND)
                 return@execute
             }
 
             val role = args.first
-            configuration[guild.id.value]?.staffRole = role.id.value
+            configuration[guild.id]?.staffRole = role.id
             configuration.save()
             respond("Role set to: **${role.name}**")
         }
@@ -83,14 +83,14 @@ fun configurationCommands(configuration: Configuration, messages: Messages) = co
         description = "Set the bot logging channel"
         requiredPermissionLevel = PermissionLevel.Administrator
         execute(ChannelArg) {
-            val guildId = guild.id.value
+            val guildId = guild.id
             if (!configuration.hasGuildConfig(guildId)) {
                 respond(messages.GUILD_CONFIGURATION_NOT_FOUND)
                 return@execute
             }
 
             val channel = args.first
-            configuration[guild.id.value]?.loggingChannel = channel.id.value
+            configuration[guild.id]?.loggingChannel = channel.id
             configuration.save()
             respond("Channel set to: **${channel.name}**")
         }
@@ -100,14 +100,14 @@ fun configurationCommands(configuration: Configuration, messages: Messages) = co
         description = "Set the default reaction for raffles"
         requiredPermissionLevel = PermissionLevel.Administrator
         execute(EitherArg(GuildEmojiArg, UnicodeEmojiArg)) {
-            val guildId = guild.id.value
+            val guildId = guild.id
             if (!configuration.hasGuildConfig(guildId)) {
                 respond(messages.GUILD_CONFIGURATION_NOT_FOUND)
                 return@execute
             }
 
             val reaction = args.first.getEmoteIdOrValue()
-            configuration[guild.id.value]?.defaultRaffleReaction = reaction
+            configuration[guild.id]?.defaultRaffleReaction = reaction
             configuration.save()
             respond("Reaction set to: ${reaction.toDisplayableEmote(guildId)}")
         }

@@ -1,5 +1,6 @@
 package me.abzylicious.rafflebot.embeds
 
+import dev.kord.common.entity.Snowflake
 import dev.kord.common.kColor
 import dev.kord.rest.builder.message.EmbedBuilder
 import me.abzylicious.rafflebot.extensions.stdlib.toDisplayableEmote
@@ -9,7 +10,7 @@ import me.jakejmattson.discordkt.extensions.addInlineField
 import me.jakejmattson.discordkt.extensions.pfpUrl
 import me.jakejmattson.discordkt.extensions.thumbnail
 
-suspend fun EmbedBuilder.createRaffleListEmbed(discord: Discord, raffles: List<Raffle>, guildId: Long) {
+suspend fun EmbedBuilder.createRaffleListEmbed(discord: Discord, raffles: List<Raffle>, guildId: Snowflake) {
     color = discord.configuration.theme
     thumbnail(discord.kord.getSelf().pfpUrl)
     title = "Raffles"

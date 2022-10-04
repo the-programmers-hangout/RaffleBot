@@ -7,9 +7,9 @@ import me.jakejmattson.discordkt.dsl.precondition
 fun commandLogger(loggingService: LoggingService, configuration: Configuration) = precondition {
     command ?: return@precondition fail()
 
-    val guildId = guild?.id?.value ?: return@precondition
+    val guildId = guild?.id ?: return@precondition
     val loggingChannelId = configuration.guildConfigurations[guildId]?.loggingChannel ?: return@precondition
     val commandName = command!!.names.first().toLowerCase()
-    loggingService.log(loggingChannelId, "${author.tag} :: ${author.id.value} invoked **$commandName** in ${channel.mention}")
+    loggingService.log(loggingChannelId, "${author.tag} :: ${author.id} invoked **$commandName** in ${channel.mention}")
     return@precondition
 }

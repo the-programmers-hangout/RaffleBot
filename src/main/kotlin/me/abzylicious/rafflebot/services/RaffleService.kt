@@ -1,5 +1,6 @@
 package me.abzylicious.rafflebot.services
 
+import dev.kord.common.entity.Snowflake
 import dev.kord.core.entity.User
 import kotlinx.coroutines.flow.toList
 import me.abzylicious.rafflebot.extensions.kord.getReaction
@@ -19,19 +20,19 @@ class RaffleService(discord: Discord) {
     private val repository: RaffleRepository = RaffleRepository(discord)
     private val randomizer: Randomizer<User> = Randomizer()
 
-    fun rafflesExist(guildId: Long) = repository.exists(guildId)
-    fun raffleExists(guildId: Long, messageId: Long) = repository.exists(guildId, messageId)
-    fun getRaffles(guildId: Long) = repository.getAll(guildId)
+    fun rafflesExist(guildId: Snowflake) = repository.exists(guildId)
+    fun raffleExists(guildId: Snowflake, messageId: Snowflake) = repository.exists(guildId, messageId)
+    fun getRaffles(guildId: Snowflake) = repository.getAll(guildId)
 
-    fun addRaffle(guildId: Long, messageId: Long, channelId: Long, reaction: String, messageUrl: String) {
+    fun addRaffle(guildId: Snowflake, messageId: Snowflake, channelId: Snowflake, reaction: String, messageUrl: String) {
         if (!raffleExists(guildId, messageId))
             repository.add(Raffle(guildId, messageId, channelId, reaction, messageUrl))
     }
 
-    fun removeRaffle(guildId: Long, messageId: Long) = repository.remove(guildId, messageId)
-    fun clearRaffles(guildId: Long) = repository.clear(guildId)
+    fun removeRaffle(guildId: Snowflake, messageId: Snowflake) = repository.remove(guildId, messageId)
+    fun clearRaffles(guildId: Snowflake) = repository.clear(guildId)
 
-    suspend fun resolveRaffle(guildId: Long, messageId: Long, winnerCount: Int = 1): List<Winner> {
+    suspend fun resolveRaffle(guildId: Snowflake, messageId: Snowflake, winnerCount: Int = 1): List<Winner> {
         if (!raffleExists(guildId, messageId))
             return listOf()
 

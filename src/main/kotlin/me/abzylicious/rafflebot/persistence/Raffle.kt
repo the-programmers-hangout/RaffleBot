@@ -1,11 +1,12 @@
 package me.abzylicious.rafflebot.persistence
 
+import dev.kord.common.entity.Snowflake
 import me.jakejmattson.discordkt.dsl.Data
 
 data class Raffle (
-    val GuildId: Long,
-    val MessageId: Long,
-    val ChannelId: Long,
+    val GuildId: Snowflake,
+    val MessageId: Snowflake,
+    val ChannelId: Snowflake,
     val Reaction: String,
     val MessageUrl: String,
 )

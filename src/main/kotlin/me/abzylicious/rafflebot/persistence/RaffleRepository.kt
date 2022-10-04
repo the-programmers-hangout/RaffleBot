@@ -1,5 +1,6 @@
 package me.abzylicious.rafflebot.persistence
 
+import dev.kord.common.entity.Snowflake
 import me.jakejmattson.discordkt.Discord
 
 class RaffleRepository(private val discord: Discord) {
@@ -9,24 +10,24 @@ class RaffleRepository(private val discord: Discord) {
     private fun loadRaffles() = discord.getInjectionObjects(RaffleEntries::class)
     private fun saveRaffles() = raffleEntries.save()
 
-    fun getAll(guildId: Long) = raffleEntries.raffles.filter { it.GuildId == guildId }
-    fun get(guildId: Long, messageId: Long) = raffleEntries.raffles.find { it.GuildId == guildId && it.MessageId == messageId }
+    fun getAll(guildId: Snowflake) = raffleEntries.raffles.filter { it.GuildId == guildId }
+    fun get(guildId: Snowflake, messageId: Snowflake) = raffleEntries.raffles.find { it.GuildId == guildId && it.MessageId == messageId }
 
     fun add(raffle: Raffle) {
         raffleEntries.raffles.add(raffle)
         saveRaffles()
     }
 
-    fun remove(guildId: Long, messageId: Long) {
+    fun remove(guildId: Snowflake, messageId: Snowflake) {
         if (raffleEntries.raffles.removeIf { it.GuildId == guildId && it.MessageId == messageId })
             saveRaffles()
     }
 
-    fun clear(guildId: Long) {
+    fun clear(guildId: Snowflake) {
         if (raffleEntries.raffles.removeIf {it.GuildId == guildId })
             saveRaffles()
     }
 
-    fun exists(guildId: Long) = raffleEntries.raffles.any { it.GuildId == guildId }
-    fun exists(guildId: Long, messageId: Long) = raffleEntries.raffles.any { it.GuildId == guildId && it.MessageId == messageId }
+    fun exists(guildId: Snowflake) = raffleEntries.raffles.any { it.GuildId == guildId }
+    fun exists(guildId: Snowflake, messageId: Snowflake) = raffleEntries.raffles.any { it.GuildId == guildId && it.MessageId == messageId }
 }

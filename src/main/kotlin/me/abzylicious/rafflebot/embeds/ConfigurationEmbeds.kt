@@ -16,10 +16,10 @@ suspend fun EmbedBuilder.createConfigurationMessageEmbed(discord: Discord, title
 
 suspend fun EmbedBuilder.createConfigurationEmbed(discord: Discord, guild: Guild, guildConfiguration: GuildConfiguration) {
     color = discord.configuration.theme
-    title = "${discord.kord.getGuild(guildConfiguration.id.toSnowflake())?.name} - Configuration"
+    title = "${guild.name} - Configuration"
     thumbnail(discord.kord.getSelf().pfpUrl)
-    addField("Admin Role", guild.getRole(guildConfiguration.adminRole.toSnowflake()).mention)
-    addField("Staff Role", guild.getRole(guildConfiguration.staffRole.toSnowflake()).mention)
-    addField("Logging Channel", guild.getChannel(guildConfiguration.loggingChannel.toSnowflake()).mention)
-    addField("Default Raffle Reaction", guildConfiguration.defaultRaffleReaction.toDisplayableEmote(guildConfiguration.id))
+    addField("Admin Role", guild.getRole(guildConfiguration.adminRole).mention)
+    addField("Staff Role", guild.getRole(guildConfiguration.staffRole).mention)
+    addField("Logging Channel", guild.getChannel(guildConfiguration.loggingChannel).mention)
+    addField("Default Raffle Reaction", guildConfiguration.defaultRaffleReaction.toDisplayableEmote(guild.id))
 }

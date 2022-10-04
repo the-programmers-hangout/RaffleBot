@@ -4,9 +4,7 @@ import me.abzylicious.rafflebot.configuration.Configuration
 import me.abzylicious.rafflebot.configuration.Messages
 import me.abzylicious.rafflebot.embeds.createRaffleListEmbed
 import me.abzylicious.rafflebot.extensions.discordkt.getEmoteIdOrValue
-import me.abzylicious.rafflebot.services.PermissionLevel
 import me.abzylicious.rafflebot.services.RaffleService
-import me.abzylicious.rafflebot.services.requiredPermissionLevel
 import me.jakejmattson.discordkt.arguments.*
 import me.jakejmattson.discordkt.commands.commands
 import me.jakejmattson.discordkt.extensions.jumpLink
@@ -14,7 +12,6 @@ import me.jakejmattson.discordkt.extensions.jumpLink
 fun raffleCommands(configuration: Configuration, raffleService: RaffleService, messages: Messages) = commands("Raffle") {
     command("List") {
         description = "Lists all active raffles"
-        requiredPermissionLevel = PermissionLevel.Staff
         execute {
             val guildId = guild.id
             val raffles = raffleService.getRaffles(guildId)
@@ -24,7 +21,6 @@ fun raffleCommands(configuration: Configuration, raffleService: RaffleService, m
 
     command("Convert") {
         description = "Converts a message to a raffle"
-        requiredPermissionLevel = PermissionLevel.Staff
         execute(MessageArg, EitherArg(GuildEmojiArg, UnicodeEmojiArg).optionalNullable()) {
             val guildId = guild.id
             val message = args.first
@@ -47,7 +43,6 @@ fun raffleCommands(configuration: Configuration, raffleService: RaffleService, m
 
     command("End") {
         description = "End a given raffle"
-        requiredPermissionLevel = PermissionLevel.Staff
         execute(MessageArg, IntegerArg.optional(1)) {
             val guildId = guild.id
             val messageId = args.first.id
@@ -74,7 +69,6 @@ fun raffleCommands(configuration: Configuration, raffleService: RaffleService, m
     }
 
     command("Remove") {
-        requiredPermissionLevel = PermissionLevel.Staff
         description = "Remove a given raffle"
         execute(MessageArg) {
             val guildId = guild.id
@@ -91,7 +85,6 @@ fun raffleCommands(configuration: Configuration, raffleService: RaffleService, m
     }
 
     command("Clear") {
-        requiredPermissionLevel = PermissionLevel.Staff
         description = "Remove all raffles"
         execute {
             val guildId = guild.id

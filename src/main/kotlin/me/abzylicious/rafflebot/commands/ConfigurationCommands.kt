@@ -1,21 +1,18 @@
 package me.abzylicious.rafflebot.commands
 
+import dev.kord.common.entity.Permission
+import dev.kord.common.entity.Permissions
 import me.abzylicious.rafflebot.configuration.Configuration
 import me.abzylicious.rafflebot.configuration.Messages
 import me.abzylicious.rafflebot.conversations.ConfigurationConversation
 import me.abzylicious.rafflebot.embeds.createConfigurationEmbed
-import me.abzylicious.rafflebot.extensions.discordkt.getEmoteIdOrValue
-import me.abzylicious.rafflebot.extensions.stdlib.toDisplayableEmote
-import me.abzylicious.rafflebot.services.PermissionLevel
-import me.abzylicious.rafflebot.services.requiredPermissionLevel
 import me.jakejmattson.discordkt.arguments.*
 import me.jakejmattson.discordkt.commands.commands
 import me.jakejmattson.discordkt.dsl.edit
 
-fun configurationCommands(configuration: Configuration, messages: Messages) = commands("Configuration") {
+fun configurationCommands(configuration: Configuration, messages: Messages) = commands("Configuration", Permissions(Permission.ManageGuild)) {
     command("configuration") {
         description = "Show the current guild configuration"
-        requiredPermissionLevel = PermissionLevel.Staff
         execute {
             val guildId = guild.id
             if (!configuration.hasGuildConfig(guildId)) {
@@ -30,7 +27,6 @@ fun configurationCommands(configuration: Configuration, messages: Messages) = co
 
     command("configure") {
         description = "Configure a guild to use this bot"
-        requiredPermissionLevel = PermissionLevel.Administrator
         execute {
             val guildId = guild.id
             if (configuration.hasGuildConfig(guildId)) {
@@ -48,7 +44,6 @@ fun configurationCommands(configuration: Configuration, messages: Messages) = co
 
     command("setadminrole") {
         description = "Set the bot admin role"
-        requiredPermissionLevel = PermissionLevel.Administrator
         execute(RoleArg) {
             val guildId = guild.id
             if (!configuration.hasGuildConfig(guildId)) {
@@ -64,7 +59,6 @@ fun configurationCommands(configuration: Configuration, messages: Messages) = co
 
     command("setstaffrole") {
         description = "Set the bot staff role"
-        requiredPermissionLevel = PermissionLevel.Administrator
         execute(RoleArg) {
             val guildId = guild.id
             if (!configuration.hasGuildConfig(guildId)) {
@@ -80,7 +74,6 @@ fun configurationCommands(configuration: Configuration, messages: Messages) = co
 
     command("setloggingchannel") {
         description = "Set the bot logging channel"
-        requiredPermissionLevel = PermissionLevel.Administrator
         execute(ChannelArg) {
             val guildId = guild.id
             if (!configuration.hasGuildConfig(guildId)) {
@@ -96,7 +89,6 @@ fun configurationCommands(configuration: Configuration, messages: Messages) = co
 
     command("setdefaultreaction") {
         description = "Set the default reaction for raffles"
-        requiredPermissionLevel = PermissionLevel.Administrator
         execute(EitherArg(GuildEmojiArg, UnicodeEmojiArg)) {
             val guildId = guild.id
             if (!configuration.hasGuildConfig(guildId)) {

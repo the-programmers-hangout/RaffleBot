@@ -1,9 +1,9 @@
 package me.abzylicious.rafflebot.commands
 
-import me.jakejmattson.discordkt.api.dsl.commands
+import me.jakejmattson.discordkt.commands.commands
 
 fun utilityCommands() = commands("Utility") {
-    guildCommand("Ping") {
+    command("Ping") {
         description = "Check the status of the bot"
         execute {
             respond("Pong! (${discord.kord.gateway.averagePing})")

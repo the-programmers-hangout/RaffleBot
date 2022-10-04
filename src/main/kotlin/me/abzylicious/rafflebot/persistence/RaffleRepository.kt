@@ -1,6 +1,6 @@
 package me.abzylicious.rafflebot.persistence
 
-import me.jakejmattson.discordkt.api.Discord
+import me.jakejmattson.discordkt.Discord
 
 class RaffleRepository(private val discord: Discord) {
 

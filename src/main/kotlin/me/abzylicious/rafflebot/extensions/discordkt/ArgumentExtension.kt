@@ -2,6 +2,6 @@ package me.abzylicious.rafflebot.extensions.discordkt
 
 import dev.kord.core.entity.GuildEmoji
 import dev.kord.x.emoji.DiscordEmoji
-import me.jakejmattson.discordkt.api.arguments.Either
+import me.jakejmattson.discordkt.arguments.Either
 
-suspend fun Either<GuildEmoji, DiscordEmoji>.getEmoteIdOrValue() = map({ emote -> emote.id.asString }, { unicodeEmote -> unicodeEmote.unicode })
+suspend fun Either<GuildEmoji, DiscordEmoji>.getEmoteIdOrValue() = map({ emote -> emote.id.toString() }, { unicodeEmote -> unicodeEmote.unicode })

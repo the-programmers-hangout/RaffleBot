@@ -1,13 +1,13 @@
 package me.abzylicious.rafflebot.configuration
 
-import me.jakejmattson.discordkt.api.dsl.Data
+import me.jakejmattson.discordkt.dsl.Data
 
 data class Configuration(
     val ownerId: String = "insert-owner-id",
     val prefix: String = "raffle!",
     val defaultRaffleReaction: String = "\uD83C\uDF89",
     val guildConfigurations: MutableMap<Long, GuildConfiguration> = mutableMapOf()
-) : Data("config/config.json") {
+) : Data() {
     operator fun get(id: Long) = guildConfigurations[id]
     fun hasGuildConfig(guildId: Long) = guildConfigurations.containsKey(guildId)
 

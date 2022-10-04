@@ -1,6 +1,6 @@
 package me.abzylicious.rafflebot.configuration
 
-import me.jakejmattson.discordkt.api.dsl.Data
+import me.jakejmattson.discordkt.dsl.Data
 
 data class Messages(
     val NO_TOKEN_PROVIDED: String = "Expected the bot token as argument or an environment variable",

@@ -8,11 +8,11 @@ import me.abzylicious.rafflebot.extensions.discordkt.getEmoteIdOrValue
 import me.abzylicious.rafflebot.extensions.stdlib.toDisplayableEmote
 import me.abzylicious.rafflebot.services.PermissionLevel
 import me.abzylicious.rafflebot.services.requiredPermissionLevel
-import me.jakejmattson.discordkt.api.arguments.*
-import me.jakejmattson.discordkt.api.dsl.commands
+import me.jakejmattson.discordkt.arguments.*
+import me.jakejmattson.discordkt.commands.commands
 
 fun configurationCommands(configuration: Configuration, messages: Messages) = commands("Configuration") {
-    guildCommand("configuration") {
+    command("configuration") {
         description = "Show the current guild configuration"
         requiredPermissionLevel = PermissionLevel.Staff
         execute {
@@ -27,7 +27,7 @@ fun configurationCommands(configuration: Configuration, messages: Messages) = co
         }
     }
 
-    guildCommand("configure") {
+    command("configure") {
         description = "Configure a guild to use this bot"
         requiredPermissionLevel = PermissionLevel.Administrator
         execute {
@@ -45,7 +45,7 @@ fun configurationCommands(configuration: Configuration, messages: Messages) = co
         }
     }
 
-    guildCommand("setprefix") {
+    command("setprefix") {
         description = "Set the bot prefix"
         requiredPermissionLevel = PermissionLevel.Administrator
         execute(EveryArg) {
@@ -62,7 +62,7 @@ fun configurationCommands(configuration: Configuration, messages: Messages) = co
         }
     }
 
-    guildCommand("setadminrole") {
+    command("setadminrole") {
         description = "Set the bot admin role"
         requiredPermissionLevel = PermissionLevel.Administrator
         execute(RoleArg) {
@@ -79,7 +79,7 @@ fun configurationCommands(configuration: Configuration, messages: Messages) = co
         }
     }
 
-    guildCommand("setstaffrole") {
+    command("setstaffrole") {
         description = "Set the bot staff role"
         requiredPermissionLevel = PermissionLevel.Administrator
         execute(RoleArg) {
@@ -96,7 +96,7 @@ fun configurationCommands(configuration: Configuration, messages: Messages) = co
         }
     }
 
-    guildCommand("setloggingchannel") {
+    command("setloggingchannel") {
         description = "Set the bot logging channel"
         requiredPermissionLevel = PermissionLevel.Administrator
         execute(ChannelArg) {
@@ -113,7 +113,7 @@ fun configurationCommands(configuration: Configuration, messages: Messages) = co
         }
     }
 
-    guildCommand("setdefaultreaction") {
+    command("setdefaultreaction") {
         description = "Set the default reaction for raffles"
         requiredPermissionLevel = PermissionLevel.Administrator
         execute(EitherArg(GuildEmojiArg, UnicodeEmojiArg)) {

@@ -1,6 +1,6 @@
 package me.abzylicious.rafflebot.persistence
 
-import me.jakejmattson.discordkt.api.dsl.Data
+import me.jakejmattson.discordkt.dsl.Data
 
 data class Raffle (
     val GuildId: Long,

@@ -2,7 +2,7 @@ package me.abzylicious.rafflebot.services
 
 import me.abzylicious.rafflebot.extensions.stdlib.isValidChannelId
 import me.abzylicious.rafflebot.extensions.stdlib.toTextChannel
-import me.jakejmattson.discordkt.api.annotations.Service
+import me.jakejmattson.discordkt.annotations.Service
 
 @Service
 class LoggingService {

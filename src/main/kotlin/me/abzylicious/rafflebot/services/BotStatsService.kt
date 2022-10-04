@@ -2,8 +2,8 @@ package me.abzylicious.rafflebot.services
 
 import me.abzylicious.rafflebot.configuration.Configuration
 import me.abzylicious.rafflebot.utilities.timeToString
-import me.jakejmattson.discordkt.api.Discord
-import me.jakejmattson.discordkt.api.annotations.Service
+import me.jakejmattson.discordkt.Discord
+import me.jakejmattson.discordkt.annotations.Service
 import java.util.*
 
 @Service

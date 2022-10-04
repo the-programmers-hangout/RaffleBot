@@ -6,9 +6,9 @@ import dev.kord.core.entity.channel.MessageChannel
 import me.abzylicious.rafflebot.extensions.stdlib.isEmoji
 import me.abzylicious.rafflebot.extensions.stdlib.isGuildEmote
 import me.abzylicious.rafflebot.extensions.stdlib.toGuildEmote
-import me.jakejmattson.discordkt.api.Discord
-import me.jakejmattson.discordkt.api.annotations.Service
-import me.jakejmattson.discordkt.api.extensions.toSnowflake
+import me.jakejmattson.discordkt.Discord
+import me.jakejmattson.discordkt.annotations.Service
+import me.jakejmattson.discordkt.extensions.toSnowflake
 
 private lateinit var api: Kord
 

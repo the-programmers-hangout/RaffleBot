@@ -7,9 +7,9 @@ import me.abzylicious.rafflebot.extensions.stdlib.toTextChannel
 import me.abzylicious.rafflebot.persistence.Raffle
 import me.abzylicious.rafflebot.persistence.RaffleRepository
 import me.abzylicious.rafflebot.utilities.Randomizer
-import me.jakejmattson.discordkt.api.Discord
-import me.jakejmattson.discordkt.api.annotations.Service
-import me.jakejmattson.discordkt.api.extensions.toSnowflake
+import me.jakejmattson.discordkt.Discord
+import me.jakejmattson.discordkt.annotations.Service
+import me.jakejmattson.discordkt.extensions.toSnowflake
 
 data class Winner(val id: String, val name: String, val mention: String)
 
@@ -37,7 +37,7 @@ class RaffleService(discord: Discord) {
 
         val raffle = repository.get(guildId, messageId)!!
         val participants = getRaffleParticipants(raffle).filter { it.isBot == null || it.isBot == false }
-        return randomizer.selectRandom(participants, winnerCount).map { Winner(it.id.asString, it.tag, it.mention) }
+        return randomizer.selectRandom(participants, winnerCount).map { Winner(it.id.toString(), it.tag, it.mention) }
     }
 
     private suspend fun getRaffleParticipants(raffle: Raffle): List<User> {

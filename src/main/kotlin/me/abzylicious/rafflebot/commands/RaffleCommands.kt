@@ -9,11 +9,11 @@ import me.abzylicious.rafflebot.extensions.kord.jumpLink
 import me.abzylicious.rafflebot.services.PermissionLevel
 import me.abzylicious.rafflebot.services.RaffleService
 import me.abzylicious.rafflebot.services.requiredPermissionLevel
-import me.jakejmattson.discordkt.api.arguments.*
-import me.jakejmattson.discordkt.api.dsl.commands
+import me.jakejmattson.discordkt.arguments.*
+import me.jakejmattson.discordkt.commands.commands
 
 fun raffleCommands(configuration: Configuration, raffleService: RaffleService, messages: Messages) = commands("Raffle") {
-    guildCommand("List") {
+    command("List") {
         description = "Lists all active raffles"
         requiredPermissionLevel = PermissionLevel.Staff
         execute {
@@ -23,7 +23,7 @@ fun raffleCommands(configuration: Configuration, raffleService: RaffleService, m
         }
     }
 
-    guildCommand("Convert") {
+    command("Convert") {
         description = "Converts a message to a raffle"
         requiredPermissionLevel = PermissionLevel.Staff
         execute(MessageArg, EitherArg(GuildEmojiArg, UnicodeEmojiArg).optionalNullable()) {
@@ -45,7 +45,7 @@ fun raffleCommands(configuration: Configuration, raffleService: RaffleService, m
         }
     }
 
-    guildCommand("End") {
+    command("End") {
         description = "End a given raffle"
         requiredPermissionLevel = PermissionLevel.Staff
         execute(MessageArg, IntegerArg.optional(1)) {
@@ -73,7 +73,7 @@ fun raffleCommands(configuration: Configuration, raffleService: RaffleService, m
         }
     }
 
-    guildCommand("Remove") {
+    command("Remove") {
         requiredPermissionLevel = PermissionLevel.Staff
         description = "Remove a given raffle"
         execute(MessageArg) {
@@ -90,7 +90,7 @@ fun raffleCommands(configuration: Configuration, raffleService: RaffleService, m
         }
     }
 
-    guildCommand("Clear") {
+    command("Clear") {
         requiredPermissionLevel = PermissionLevel.Staff
         description = "Remove all raffles"
         execute {

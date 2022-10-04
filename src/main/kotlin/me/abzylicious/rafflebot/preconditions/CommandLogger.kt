@@ -2,7 +2,7 @@ package me.abzylicious.rafflebot.preconditions
 
 import me.abzylicious.rafflebot.configuration.Configuration
 import me.abzylicious.rafflebot.services.LoggingService
-import me.jakejmattson.discordkt.api.dsl.precondition
+import me.jakejmattson.discordkt.dsl.precondition
 
 fun commandLogger(loggingService: LoggingService, configuration: Configuration) = precondition {
     command ?: return@precondition fail()

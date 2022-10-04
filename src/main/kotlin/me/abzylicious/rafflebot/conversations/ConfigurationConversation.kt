@@ -4,8 +4,8 @@ import me.abzylicious.rafflebot.configuration.Configuration
 import me.abzylicious.rafflebot.configuration.Messages
 import me.abzylicious.rafflebot.embeds.createConfigurationMessageEmbed
 import me.abzylicious.rafflebot.extensions.discordkt.getEmoteIdOrValue
-import me.jakejmattson.discordkt.api.arguments.*
-import me.jakejmattson.discordkt.api.conversations.conversation
+import me.jakejmattson.discordkt.arguments.*
+import me.jakejmattson.discordkt.conversations.conversation
 
 class ConfigurationConversation(private val configuration: Configuration, private val messages: Messages) {
     suspend fun createConfigurationConversation(guildId: Long) = conversation {

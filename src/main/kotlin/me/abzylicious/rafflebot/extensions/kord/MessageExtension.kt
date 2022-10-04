@@ -5,7 +5,7 @@ import dev.kord.core.entity.ReactionEmoji
 
 fun Message.getReaction(reaction: String): ReactionEmoji? {
     val optionalReaction = reactions.parallelStream()
-        .filter { it.emoji.name == reaction || it.id?.asString == reaction }
+        .filter { it.emoji.name == reaction || it.id?.toString() == reaction }
         .findFirst()
 
     return if (optionalReaction.isPresent) optionalReaction.get().emoji else null

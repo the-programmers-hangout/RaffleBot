@@ -10,11 +10,10 @@ plugins {
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 
 dependencies {
-    implementation("me.jakejmattson:DiscordKt:0.22.0")
+    implementation("me.jakejmattson:DiscordKt:0.23.4")
     implementation("com.google.code.gson:gson:2.8.9")
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.1")
 }

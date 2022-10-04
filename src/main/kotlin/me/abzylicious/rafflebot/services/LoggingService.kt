@@ -1,15 +1,14 @@
 package me.abzylicious.rafflebot.services
 
 import dev.kord.common.entity.Snowflake
-import me.abzylicious.rafflebot.extensions.stdlib.isValidChannelId
-import me.abzylicious.rafflebot.extensions.stdlib.toTextChannel
+import dev.kord.core.entity.channel.GuildMessageChannel
+import me.jakejmattson.discordkt.Discord
 import me.jakejmattson.discordkt.annotations.Service
 
 @Service
-class LoggingService {
+class LoggingService(val discord: Discord) {
     suspend fun log(logChannelId: Snowflake, message: String) {
-        if (!logChannelId.isValidChannelId()) return
-        val loggingChannel = logChannelId.toTextChannel()
-        loggingChannel!!.createMessage(message)
+        val logChannel = discord.kord.getChannelOf<GuildMessageChannel>(logChannelId) ?: return
+        logChannel.createMessage(message)
     }
 }

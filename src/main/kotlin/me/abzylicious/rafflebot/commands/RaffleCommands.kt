@@ -4,13 +4,12 @@ import me.abzylicious.rafflebot.configuration.Configuration
 import me.abzylicious.rafflebot.configuration.Messages
 import me.abzylicious.rafflebot.embeds.createRaffleListEmbed
 import me.abzylicious.rafflebot.extensions.discordkt.getEmoteIdOrValue
-import me.abzylicious.rafflebot.extensions.kord.addReaction
-import me.abzylicious.rafflebot.extensions.kord.jumpLink
 import me.abzylicious.rafflebot.services.PermissionLevel
 import me.abzylicious.rafflebot.services.RaffleService
 import me.abzylicious.rafflebot.services.requiredPermissionLevel
 import me.jakejmattson.discordkt.arguments.*
 import me.jakejmattson.discordkt.commands.commands
+import me.jakejmattson.discordkt.extensions.jumpLink
 
 fun raffleCommands(configuration: Configuration, raffleService: RaffleService, messages: Messages) = commands("Raffle") {
     command("List") {
@@ -28,19 +27,20 @@ fun raffleCommands(configuration: Configuration, raffleService: RaffleService, m
         requiredPermissionLevel = PermissionLevel.Staff
         execute(MessageArg, EitherArg(GuildEmojiArg, UnicodeEmojiArg).optionalNullable()) {
             val guildId = guild.id
-            val messageId = args.first.id
+            val message = args.first
+            val messageId = message.id
 
             if (raffleService.raffleExists(guildId, messageId)) {
                 respond(messages.RAFFLE_EXISTS)
                 return@execute
             }
 
-            val messageUrl = args.first.jumpLink(guildId.value.toLong())
+            val messageUrl = args.first.jumpLink()
             val channelId = args.first.channelId
             val reaction = args.second?.getEmoteIdOrValue() ?: configuration.defaultRaffleReaction
 
             raffleService.addRaffle(guildId, messageId, channelId, reaction, messageUrl)
-            channel.addReaction(guildId, messageId, reaction)
+            message.addReaction(reaction)
             respond(messages.MESSAGE_CONVERT_SUCCESS)
         }
     }

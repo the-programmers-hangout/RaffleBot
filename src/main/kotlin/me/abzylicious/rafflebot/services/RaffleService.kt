@@ -4,7 +4,6 @@ import dev.kord.common.entity.Snowflake
 import dev.kord.core.entity.User
 import kotlinx.coroutines.flow.toList
 import me.abzylicious.rafflebot.extensions.kord.getReaction
-import me.abzylicious.rafflebot.extensions.stdlib.toTextChannel
 import me.abzylicious.rafflebot.persistence.Raffle
 import me.abzylicious.rafflebot.persistence.RaffleRepository
 import me.abzylicious.rafflebot.utilities.Randomizer

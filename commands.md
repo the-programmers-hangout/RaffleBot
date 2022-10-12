@@ -14,12 +14,12 @@
 | loggingchannel  | Channel        | Set the bot logging channel          |
 
 ## /raffle
-| Commands | Arguments          | Description                    |
-|----------|--------------------|--------------------------------|
-| Cancel   | Message            | Cancel a given raffle          |
-| Convert  | Message, Emoji     | Converts a message to a raffle |
-| End      | Message, [Winners] | End a given raffle             |
-| List     |                    | Lists all active raffles       |
+| Commands | Arguments                        | Description               |
+|----------|----------------------------------|---------------------------|
+| cancel   | Message                          | Cancel an existing raffle |
+| end      | Message, [Winners]               | End an existing raffle    |
+| list     |                                  | Lists all active raffles  |
+| start    | [Channel], [Reaction], [Winners] | Create a new raffle       |
 
 ## Utility
 | Commands | Arguments | Description            |
